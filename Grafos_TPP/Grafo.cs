@@ -5,7 +5,7 @@ using System.Text;
 namespace Grafos_TPP
 {
     public class Grafo
-    {
+    {        
         public List<Vertice> grafo;
 
         public Grafo() { }
@@ -13,6 +13,25 @@ namespace Grafos_TPP
         public Grafo(List<Vertice> grafo)
         {
             this.grafo = grafo;
+        }
+
+
+
+
+
+        public List<Vertice> heuristica1()
+        {
+
+        }
+
+        public List<Vertice> heuristica2()
+        {
+
+        }
+
+        public List<Vertice> heuristica3()
+        {
+
         }
 
         public void Imprimir()
