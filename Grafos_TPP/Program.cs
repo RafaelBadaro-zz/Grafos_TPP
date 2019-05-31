@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Grafos_TPP
 {
@@ -24,17 +25,39 @@ namespace Grafos_TPP
             Arestas: conflitos(mesmo professor ou período)
         */
 
+        public static Grafo g = new Grafo(new List<List<Vertice>>());
+
         public void LerArquivo() // Lê arquivo e cria vagas se nescessario.
         {
             if (File.Exists(@"C:"))
             {
                 using (StreamReader reader = new StreamReader(@"C:"))
                 {
-
+                    List<Vertice> turmas = new List<Vertice>();
                     while (!reader.EndOfStream) // Enquanto arquivo não acaba.
                     {
                         string linha = reader.ReadLine();
+                        string[] dados = linha.Split(';');
+                        Vertice turma = new Vertice()
+                        {
+                            professor = dados[0],
+                            materia = dados[1],
+                            periodo = Int32.Parse(dados[2])
+                        };
+                        turmas.Add(turma); // le tudo e adiciona nesse vetor
                     }
+
+                    // Montar o grafo - havera aresta entre dois pontos se eles tiverem o mesmo professor ou periodo
+
+                    turmas.ForEach(turma =>
+                    {
+                        g.grafo.Add(turmas
+                            .Where(m => m.professor == turma.professor ||
+                                   m.periodo == turma.periodo).ToList());
+                    });
+
+
+
                 }
             }
         }
@@ -42,7 +65,6 @@ namespace Grafos_TPP
         //------------------ Main
         public static void Main(string[] args)
         {
-            Grafo g = new Grafo(new List<List<Vertice>>());
             List<Vertice> a = new List<Vertice>();
             List<Vertice> b = new List<Vertice>();
 
