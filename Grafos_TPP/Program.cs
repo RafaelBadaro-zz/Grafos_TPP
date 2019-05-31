@@ -49,13 +49,23 @@ namespace Grafos_TPP
 
                     // Montar o grafo - havera aresta entre dois pontos se eles tiverem o mesmo professor ou periodo
 
+
+                    //primeiro adiconar no grafo todas as turmas
                     turmas.ForEach(turma =>
                     {
-                        g.grafo.Add(turmas
-                            .Where(m => m.professor == turma.professor ||
-                                   m.periodo == turma.periodo).ToList());
+                        List<Vertice> lista = new List<Vertice>();
+                        lista.Add(turma);
+                        g.grafo.Add(lista);
                     });
 
+                    //segundamente adicionar os conflitos
+
+                    g.grafo.ForEach(turma =>
+                    {
+                        var conflitos = turmas.Where(t => t.materia != turma[0].materia && 
+                        (t.professor == turma[0].professor || t.periodo == turma[0].periodo)).ToList();
+                        conflitos.ForEach(conflito => turma.Add(conflito));
+                    });
 
 
                 }
