@@ -19,9 +19,9 @@ namespace Grafos_TPP
                         mesmo horário; que uma turma só pode ser alocada a um professor; e que um mesmo
                         professor não pode lecionar para mais de uma turma em um dado horário.
 
-            Resolução : coloração de arestas com grafo bipartido
-            Vértices: Professor
-            Arestas: Existirá aresta se o professor lecionar a aula
+            Resolução : coloração de vértices
+            Vértices: materia/turma
+            Arestas: conflitos(mesmo professor ou período)
         */
 
         public void LerArquivo() // Lê arquivo e cria vagas se nescessario.
@@ -42,7 +42,19 @@ namespace Grafos_TPP
         //------------------ Main
         public static void Main(string[] args)
         {
+            Grafo g = new Grafo(new List<List<Vertice>>());
+            List<Vertice> a = new List<Vertice>();
+            List<Vertice> b = new List<Vertice>();
 
+            a.Add(new Vertice("profa","materiaA", 1));
+            a.Add(new Vertice("profa2", "materiaA2", 1));
+            b.Add(new Vertice("profb", "materiaB", 1));
+            b.Add(new Vertice("profb2", "materiaB2", 1));
+
+            g.grafo.Add(a);
+            g.grafo.Add(b);
+
+            g.Imprimir();
         }
     }
 }

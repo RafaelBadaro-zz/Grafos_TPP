@@ -6,63 +6,57 @@ namespace Grafos_TPP
 {
     public class Grafo
     {        
-        public List<Vertice> grafo;
+        public List<List<Vertice>> grafo;
 
         public Grafo() { }
 
-        public Grafo(List<Vertice> grafo)
+        public Grafo(List<List<Vertice>> grafo)
         {
             this.grafo = grafo;
         }
 
 
+        //public List<Vertice> heuristica1()
+        //{
 
+        //}
 
+        //public List<Vertice> heuristica2()
+        //{
 
-        public List<Vertice> heuristica1()
-        {
+        //}
 
-        }
+        //public List<Vertice> heuristica3()
+        //{
 
-        public List<Vertice> heuristica2()
-        {
-
-        }
-
-        public List<Vertice> heuristica3()
-        {
-
-        }
+        //}
 
         public void Imprimir()
         {
-            grafo.ForEach(vertice =>
+            grafo.ForEach(listaDeAdj =>
             {
-                Console.Write(vertice.nome + " -> ");
-                vertice.listaDeAdjacencia.ForEach(verticeNaLista =>
+                if(listaDeAdj.Count == 0)
                 {
-                    if (vertice.listaDeAdjacencia.Count > 0)
+                    Console.WriteLine("-> _");
+                }
+                else
+                {
+                    listaDeAdj.ForEach(vertice =>
                     {
-                        if (vertice.listaDeAdjacencia.IndexOf(verticeNaLista) == vertice.listaDeAdjacencia.Count - 1)
+                        if (listaDeAdj.IndexOf(vertice) == listaDeAdj.Count - 1)
                         {
-                            Console.Write(verticeNaLista.nome + " -> _ ");
+                            Console.Write(vertice.professor + "/" + vertice.materia + "/" + vertice.periodo + " ->_ ");
                         }
                         else
                         {
-                            Console.Write(verticeNaLista.nome + " -> ");
+                            Console.Write(vertice.professor + "/" + vertice.materia + "/" + vertice.periodo + " -> ");
                         }
 
-                    }
-                    else
-                    {
-                        Console.Write("->_");
-                    }
-
-                });
-                Console.WriteLine();
+                    });
+                    Console.WriteLine();
+                }
             });
         }
-
 
 
     }

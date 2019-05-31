@@ -6,17 +6,17 @@ namespace Grafos_TPP
 {
     public class Vertice
     {
-        public string nome;
-        public int peso;
-        public List<Vertice> listaDeAdjacencia;
+        public string professor;
+        public string materia;
+        public int periodo;
 
         public Vertice(){}
 
-        public Vertice(string nome, int peso, List<Vertice> listaDeAdjacencia)
+        public Vertice(string professor, string materia, int periodo)
         {
-            this.nome = nome;
-            this.peso = peso;
-            this.listaDeAdjacencia = listaDeAdjacencia;
+            this.professor = professor;
+            this.materia = materia;
+            this.periodo = periodo;
         }
     }
 }
