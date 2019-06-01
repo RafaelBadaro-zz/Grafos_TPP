@@ -42,7 +42,8 @@ namespace Grafos_TPP
                         {
                             professor = dados[0],
                             materia = dados[1],
-                            periodo = Int32.Parse(dados[2])
+                            periodo = Int32.Parse(dados[2]),
+                            cor = null
                         };
                         turmas.Add(turma); // le tudo e adiciona nesse vetor
                     }
@@ -50,7 +51,7 @@ namespace Grafos_TPP
                     // Montar o grafo - havera aresta entre dois pontos se eles tiverem o mesmo professor ou periodo
 
 
-                    //primeiro adiconar no grafo todas as turmas
+                    //primeiro adiconar no grafo todas as turmas(visão horizontal)
                     turmas.ForEach(turma =>
                     {
                         List<Vertice> lista = new List<Vertice>();
@@ -58,7 +59,7 @@ namespace Grafos_TPP
                         g.grafo.Add(lista);
                     });
 
-                    //segundamente adicionar os conflitos
+                    //segundamente adicionar os conflitos(visao vertical - lisat de adj de cada turma/vertice
 
                     g.grafo.ForEach(turma =>
                     {
@@ -75,18 +76,7 @@ namespace Grafos_TPP
         //------------------ Main
         public static void Main(string[] args)
         {
-            List<Vertice> a = new List<Vertice>();
-            List<Vertice> b = new List<Vertice>();
-
-            a.Add(new Vertice("profa","materiaA", 1));
-            a.Add(new Vertice("profa2", "materiaA2", 1));
-            b.Add(new Vertice("profb", "materiaB", 1));
-            b.Add(new Vertice("profb2", "materiaB2", 1));
-
-            g.grafo.Add(a);
-            g.grafo.Add(b);
-
-            g.Imprimir();
+     
         }
     }
 }
