@@ -10,16 +10,16 @@ namespace Grafos_TPP
         public string professor;
         public string materia;
         public int periodo;
-        public string cor;
+        public int cor;
 
         public Vertice(){}
 
-        public Vertice(string professor, string materia, int periodo, string cor)
+        public Vertice(string professor, string materia, int periodo)
         {
             this.professor = professor;
             this.materia = materia;
             this.periodo = periodo;
-            this.cor = cor;
+            this.cor = 0;
         }
     }
 }

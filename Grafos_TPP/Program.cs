@@ -29,9 +29,9 @@ namespace Grafos_TPP
 
         public void LerArquivo() // Lê arquivo e cria vagas se nescessario.
         {
-            if (File.Exists(@"C:"))
+            if (File.Exists(@"C:\Users\Dell\Desktop\Grafos_TPP\Grafos_TPP\bin\Debug\netcoreapp2.1\a.txt"))
             {
-                using (StreamReader reader = new StreamReader(@"C:"))
+                using (StreamReader reader = new StreamReader(@"C:\Users\Dell\Desktop\Grafos_TPP\Grafos_TPP\bin\Debug\netcoreapp2.1\a.txt"))
                 {
                     List<Vertice> turmas = new List<Vertice>();
                     while (!reader.EndOfStream) // Enquanto arquivo não acaba.
@@ -42,8 +42,7 @@ namespace Grafos_TPP
                         {
                             professor = dados[0],
                             materia = dados[1],
-                            periodo = Int32.Parse(dados[2]),
-                            cor = null
+                            periodo = Int32.Parse(dados[2])
                         };
                         turmas.Add(turma); // le tudo e adiciona nesse vetor
                     }
@@ -76,7 +75,11 @@ namespace Grafos_TPP
         //------------------ Main
         public static void Main(string[] args)
         {
-     
+            Program p = new Program();
+            p.LerArquivo();
+            g.Imprimir();
+
+            Console.WriteLine("Numero de cores necessarias:" + g.heuristica2());
         }
     }
 }
