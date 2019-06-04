@@ -40,9 +40,10 @@ namespace Grafos_TPP
                         string[] dados = linha.Split(';');
                         Vertice turma = new Vertice()
                         {
-                            professor = dados[0],
-                            materia = dados[1],
-                            periodo = Int32.Parse(dados[2])
+                            id = dados[0],
+                            professor = dados[1],
+                            materia = dados[2],
+                            periodo = Int32.Parse(dados[3])
                         };
                         turmas.Add(turma); // le tudo e adiciona nesse vetor
                     }
@@ -77,9 +78,9 @@ namespace Grafos_TPP
         {
             Program p = new Program();
             p.LerArquivo();
-            g.Imprimir();
+            //g.Imprimir();
 
-            Console.WriteLine("Numero de cores necessarias:" + g.heuristica2());
+            g.heuristica2();
         }
     }
 }

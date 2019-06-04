@@ -21,7 +21,7 @@ namespace Grafos_TPP
         //{
         //}
 
-        public int heuristica2()
+        public void heuristica2()
         {
             List<List<Vertice>> copiaGrafo = grafo;
             // ordenar o grafo em ordem descrescente de grau
@@ -50,9 +50,7 @@ namespace Grafos_TPP
                 }
             }
 
-
-
-            return cores;
+            MontarGrade(copiaGrafo);
         }
 
         //public List<Vertice> heuristica3()
@@ -60,9 +58,58 @@ namespace Grafos_TPP
 
         //}
 
-        public void Imprimir()
+
+        public void MontarGrade(List<List<Vertice>> grafoColorado)
         {
-            grafo.ForEach(listaDeAdj =>
+            /*
+             Formato:
+             N - periodo
+             turma - prof,           
+             */
+
+            //Primeiro descobrir quantos periodos tem
+
+           var periodos = grafoColorado.SelectMany(l => l.Select(v => v.periodo)).Distinct().ToList();
+            periodos.Sort();
+
+            for(int i = 1; i <= periodos.Count; i++)
+            {
+                Console.WriteLine(i + "-Período");
+                var materiasPorPeriodo = grafoColorado.Select(l => l.Where(v => v.periodo == i).ToList()).ToList();
+
+                List<List<Vertice>> filtragem = new List<List<Vertice>>();// grafo com todas as matérias do período sem repetição
+                materiasPorPeriodo.ForEach(l =>
+                {
+                    if(l.Count > 0)
+                    {
+                        if (filtragem.Where(lista => lista[0].materia == l[0].materia).Count() == 0)
+                        {
+                            filtragem.Add(l);
+                        }
+                    }
+                });
+
+                //São sempre 3 horários:
+                // Pegar essas materias(Filtragem) e permutar em 3 horários
+                
+
+                Imprimir(filtragem);
+
+
+
+               
+
+
+                Console.WriteLine("--------------------------");
+            }
+
+
+
+        }
+
+        public void Imprimir(List<List<Vertice>> grafoImpresso)
+        {
+            grafoImpresso.ForEach(listaDeAdj =>
             {
                 if (listaDeAdj.Count == 0)
                 {
