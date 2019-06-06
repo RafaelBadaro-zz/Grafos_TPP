@@ -78,9 +78,15 @@ namespace Grafos_TPP
         {
             Program p = new Program();
             p.LerArquivo();
-            //g.Imprimir();
 
-            g.heuristica2();
+            Console.WriteLine("Cores na heuristica 1: ");
+            g.Heuristica1();
+            Console.WriteLine("Cores na heuristica 2: ");
+            g.Heuristica2();
+            Console.WriteLine("Cores na heuristica 3: ");
+            g.Heuristica3();
+
+
         }
     }
 }

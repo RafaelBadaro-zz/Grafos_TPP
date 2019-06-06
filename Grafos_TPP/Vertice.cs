@@ -7,6 +7,7 @@ namespace Grafos_TPP
     public class Vertice
     {
 
+        public string id;
         public string professor;
         public string materia;
         public int periodo;

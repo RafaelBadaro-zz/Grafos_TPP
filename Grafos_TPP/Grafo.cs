@@ -17,11 +17,68 @@ namespace Grafos_TPP
         }
 
 
-        //public List<Vertice> WelshEPowell()
-        //{
-        //}
+        public int Heuristica1()
+        {
+            List<List<Vertice>> copiaGrafo = grafo;
+            var pais = copiaGrafo.Select(l => l[0]).ToList();
+            int cores = 0;
 
-        public void heuristica2()
+            while(pais.Any(v => v.cor == 0))
+            {
+                cores++;
+
+                foreach(Vertice vertice in pais)
+                {
+                    var listaAdj = copiaGrafo.Find(lista => lista[0].materia == vertice.materia);
+                    if (vertice.cor == 0 && !listaAdj.Any(v => v.materia != vertice.materia && v.cor == cores))
+                    {
+                        vertice.cor = cores;
+                    }
+                }
+            }
+
+            return cores;
+        }
+
+        public int Heuristica2()
+        {
+            List<List<Vertice>> copiaGrafo = grafo;
+            var pais = copiaGrafo.Select(l => l[0]).ToList();
+            int cores = 1;
+            pais[0].cor = cores;
+            for(int i = 1; i <= pais.Count; i++)
+            {
+                bool ok = true;
+                for (int k = 1; k <= 4; k++)//cores - supondo que é um grafo planar logo máximo são 4 cores
+                {
+                   
+                    var listaAdj = copiaGrafo.Find(lista => lista[0].materia == pais[i].materia);
+                    foreach(Vertice v in listaAdj)
+                    {
+                        if(v.cor == k)
+                        {
+                            // Já há um vértice adjacente a v com essa cor. 
+                            ok = false;
+                        }
+                    }
+                    if(ok == true)
+                    {
+                        // Achamos uma cor que nenhum vértice adjacente a v possui.
+                        pais[i].cor = k;
+                    }
+                }
+                if(ok == false)
+                {
+                    // Todas as cores atuais são usadas pelos vértices adjacentes a v. 
+                    cores++;
+                    pais[i].cor = cores;                                     
+                }
+            }
+
+            return cores;
+        }
+
+        public int Heuristica3()
         {
             List<List<Vertice>> copiaGrafo = grafo;
             // ordenar o grafo em ordem descrescente de grau
@@ -50,63 +107,9 @@ namespace Grafos_TPP
                 }
             }
 
-            MontarGrade(copiaGrafo);
+            return cores;
         }
-
-        //public List<Vertice> heuristica3()
-        //{
-
-        //}
-
-
-        public void MontarGrade(List<List<Vertice>> grafoColorado)
-        {
-            /*
-             Formato:
-             N - periodo
-             turma - prof,           
-             */
-
-            //Primeiro descobrir quantos periodos tem
-
-           var periodos = grafoColorado.SelectMany(l => l.Select(v => v.periodo)).Distinct().ToList();
-            periodos.Sort();
-
-            for(int i = 1; i <= periodos.Count; i++)
-            {
-                Console.WriteLine(i + "-Período");
-                var materiasPorPeriodo = grafoColorado.Select(l => l.Where(v => v.periodo == i).ToList()).ToList();
-
-                List<List<Vertice>> filtragem = new List<List<Vertice>>();// grafo com todas as matérias do período sem repetição
-                materiasPorPeriodo.ForEach(l =>
-                {
-                    if(l.Count > 0)
-                    {
-                        if (filtragem.Where(lista => lista[0].materia == l[0].materia).Count() == 0)
-                        {
-                            filtragem.Add(l);
-                        }
-                    }
-                });
-
-                //São sempre 3 horários:
-                // Pegar essas materias(Filtragem) e permutar em 3 horários
-                
-
-                Imprimir(filtragem);
-
-
-
-               
-
-
-                Console.WriteLine("--------------------------");
-            }
-
-
-
-        }
-
+      
         public void Imprimir(List<List<Vertice>> grafoImpresso)
         {
             grafoImpresso.ForEach(listaDeAdj =>
